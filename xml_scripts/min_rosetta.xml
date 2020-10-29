@@ -1,0 +1,18 @@
+<ROSETTASCRIPTS>
+	<SCOREFXNS>
+	</SCOREFXNS>
+	<RESIDUE_SELECTORS>
+	</RESIDUE_SELECTORS>
+	<TASKOPERATIONS>
+	</TASKOPERATIONS>
+	<FILTERS>
+	</FILTERS>
+	<MOVERS>
+          <MinMover name="minimize" jump="ALL" chi="true" bb="true" abs_score_convergence_threshold="0.001" max_iter="200" type="lbfgs_armijo_nonmonotone" tolerance="0.01" omega="true" />
+        </MOVERS>
+	<APPLY_TO_POSE>
+	</APPLY_TO_POSE>
+	<PROTOCOLS>
+	</PROTOCOLS>
+	<OUTPUT />
+</ROSETTASCRIPTS>

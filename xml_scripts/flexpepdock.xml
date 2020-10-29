@@ -1,0 +1,18 @@
+<ROSETTASCRIPTS>
+        <TASKOPERATIONS>
+        </TASKOPERATIONS>
+        <SCOREFXNS>
+        </SCOREFXNS>
+        <FILTERS>
+        </FILTERS>
+        <MOVERS>
+               <FlexPepDock name="prepack" ppk_only="1" />
+               <FlexPepDock name="fpd"  pep_refine="1" lowres_preoptimize="1" />
+        </MOVERS>
+        <APPLY_TO_POSE>
+        </APPLY_TO_POSE>
+        <PROTOCOLS>
+                <Add mover_name="prepack" />
+                <Add mover_name="fpd"/>
+        </PROTOCOLS>
+</ROSETTASCRIPTS>
