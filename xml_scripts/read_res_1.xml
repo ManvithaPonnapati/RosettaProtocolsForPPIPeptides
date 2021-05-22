@@ -1,0 +1,31 @@
+
+<ROSETTASCRIPTS>
+	<SCOREFXNS>
+		<ScoreFunction name="r15" weights="ref2015" />
+	</SCOREFXNS>
+	<TASKOPERATIONS>
+        <ProteinInterfaceDesign name="interface_design" repack_chain1="1" repack_chain2="1" design_chain1="1" design_chain2="0" interface_distance_cutoff="10"/>
+        <ReadResfile name="read_res"  filename="%%out_restfile%%" />
+    </TASKOPERATIONS>
+    <FILTERS>
+        <Ddg name="ddG" scorefxn="r15" repeats="2"/>
+        <Sasa name="sasa"/>
+        <CompoundStatement name="ddg_sasa">
+            <AND filter_name="ddG"/><AND filter_name="sasa"/></CompoundStatement>
+    </FILTERS>
+	<MOVERS>
+		<BackrubDD name="backrub" partner1="1" partner2="0" interface_distance_cutoff="8.0" moves="1000" sc_move_probability="0.25" scorefxn="r15" small_move_probability="0.15" bbg_move_probability="0.25" task_operations="interface_design"/>
+        <RepackMinimize name="des1" minimize_rb="1" minimize_bb="0" task_operations="read_res" />
+        <RepackMinimize name="des2" minimize_bb="0" minimize_rb="1" task_operations="read_res"/>
+        <ParsedProtocol name="design"><Add mover_name="backrub"/><Add mover_name="des1"/>
+        </ParsedProtocol>
+        <GenericMonteCarlo name="iterate" scorefxn_name="r15" mover_name="design" trials="3"/>
+	</MOVERS>
+	<APPLY_TO_POSE>
+	</APPLY_TO_POSE>
+	<PROTOCOLS>
+		<Add mover="iterate"/>
+	</PROTOCOLS>
+
+</ROSETTASCRIPTS>
+

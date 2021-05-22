@@ -1,0 +1,31 @@
+<ROSETTASCRIPTS>
+    <SCOREFXNS>
+        <ScoreFunction name="r15" weights="ref2015"/>
+    </SCOREFXNS>
+    <TASKOPERATIONS>
+        <RestrictToRepacking name="repack_only"/>
+        <ReadResfile name="s17_mutant_binding" filename="%%new_resfile%%"/>
+        <ExtraRotamersGeneric name="extrachi" ex1="1" ex2="1" ex1_sample_level="1" ex2_sample_level="1"/>
+    </TASKOPERATIONS>
+    <FILTERS>
+
+    </FILTERS>
+    <MOVERS>
+        <FastDesign name="design_terminus" repeats="1" scorefxn="r15"
+                    task_operations="s17_mutant_binding,extrachi">
+        </FastDesign>
+        <PackRotamersMover name="repack_binding_site" scorefxn="r15"
+                           task_operations="extrachi"/>
+        <MinMover name="min_structure" scorefxn="r15" chi="true" bb="true" tolerance=".001"/>
+        <FastRelax name="fast_relax"/>>
+    </MOVERS>
+    <APPLY_TO_POSE>
+    </APPLY_TO_POSE>
+    <PROTOCOLS>
+        <Add mover="design_terminus"/>
+        <Add mover="repack_binding_site"/>
+        <Add mover="min_structure"/>
+        <Add mover="fast_relax"/>
+    </PROTOCOLS>
+    <OUTPUT scorefxn="r15"/>
+</ROSETTASCRIPTS>

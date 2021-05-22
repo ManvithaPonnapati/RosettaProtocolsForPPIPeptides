@@ -1,0 +1,18 @@
+<ROSETTASCRIPTS>
+	<SCOREFXNS>
+	</SCOREFXNS>
+	<RESIDUE_SELECTORS>
+	</RESIDUE_SELECTORS>
+	<TASKOPERATIONS>
+	</TASKOPERATIONS>
+	<FILTERS>
+	</FILTERS>
+	<MOVERS>
+          <FavorSequenceProfile name="favor_seq" chain="0"  weight="0.2"  pssm="%%pssm_path%%"  use_native="0" />
+        </MOVERS>
+	<APPLY_TO_POSE>
+	</APPLY_TO_POSE>
+	<PROTOCOLS>
+	</PROTOCOLS>
+	<OUTPUT />
+</ROSETTASCRIPTS>

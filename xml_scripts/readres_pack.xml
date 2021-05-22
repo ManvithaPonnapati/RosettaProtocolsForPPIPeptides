@@ -1,0 +1,76 @@
+<ROSETTASCRIPTS>
+    <SCOREFXNS>
+        <ScoreFunction name="r15" weights="ref2015"/>
+    </SCOREFXNS>
+<!--    <RESIDUE_SELECTORS>-->
+<!--        <Layer name="surfacelayer" select_core="false" select_boundary="false"-->
+<!--               select_surface="true" core_cutoff="4.0"/>-->
+<!--        <Index name="n_terminus" resnums="1-27"/>-->
+<!--        <Index name="n_terminus_binding_site" resnums="28-32,41-45,54-55,58,89,91,106-108,c110-114,119,121-123"/>-->
+<!--        <Not name="non_binding_or_terminus_residues">-->
+<!--            <Or selectors="n_terminus,cn_terminus_binding_site"/>-->
+<!--        </Not>-->
+<!--        <Not name="non_terminus_residues" selector="n_terminus"/>-->
+<!--        <Not name="non_binding_residues" selector="n_terminus_binding_site"/>-->
+<!--    </RESIDUE_SELECTORS>-->
+
+    <TASKOPERATIONS>
+        <RestrictToRepacking name="repack_only"/>
+        <ReadResfile name="s17_mutant_binding" filename="/u/manvitha/rosetta_bin_linux_2019.35.60890_bundle/main/source/nanobodyres.resfile"/>
+        <ExtraRotamersGeneric name="extrachi" ex1="1" ex2="1" ex1_sample_level="1" ex2_sample_level="1"/>
+<!--        <OperateOnResidueSubset name="prevent_surface_repacking" selector="surfacelayer">-->
+<!--            <PreventRepackingRLT/>-->
+<!--        </OperateOnResidueSubset>-->
+<!--        <OperateOnResidueSubset name="fix_non_binding_or_terminus_residues" selector="non_binding_or_terminus_residues">-->
+<!--            <RestrictToRepackingRLT/>-->
+<!--            <PreventRepackingRLT/>-->
+<!--        </OperateOnResidueSubset>-->
+<!--        <OperateOnResidueSubset name="fix_non_terminus_residues" selector="non_terminus_residues">-->
+<!--            <RestrictToRepackingRLT/>-->
+<!--            <PreventRepackingRLT/>-->
+<!--        </OperateOnResidueSubset>-->
+<!--        <OperateOnResidueSubset name="n_terminus_repack_only" selector="n_terminus">-->
+<!--            <RestrictToRepackingRLT/>-->
+<!--        </OperateOnResidueSubset>-->
+    </TASKOPERATIONS>
+    <FILTERS></FILTERS>
+    <MOVERS>
+        <FastDesign name="design_terminus" scorefxn="r15"
+                    task_operations="s17_mutant_binding,extrachi">
+<!--            <MoveMap name="redesign_n_terminus">-->
+<!--                <Span begin="1" end="999" chi="false" bb="false"/>-->
+<!--                <Span begin="1" end="26" chi="true" bb="true"/>-->
+<!--                <Span begin="26" end="27" chi="true" bb="true"/>-->
+<!--                <Span begin="28" end="32" chi="true" bb="false"/>-->
+<!--                <Span begin="41" end="45" chi="true" bb="false"/>-->
+<!--                <Span begin="54" end="55" chi="true" bb="false"/>-->
+<!--                <Span begin="58" end="58" chi="true" bb="false"/>-->
+<!--                <Span begin="89" end="89" chi="true" bb="false"/>-->
+<!--                <Span begin="91" end="91" chi="true" bb="false"/>-->
+<!--            </MoveMap>-->
+
+        </FastDesign>
+<!--        # Follow pack rotamers with a minimization, justof dihederal angles↪→-->
+        <PackRotamersMover name="repack_binding_site" scorefxn="r15"
+                           task_operations="extrachi"/>
+        <MinMover name="min_structure" scorefxn="r15" chi="true" bb="true" tolerance=".001">
+<!--            <MoveMap name="redesign_n_terminus">-->
+<!--                <Span begin="1" end="999" chi="false" bb="false"/>-->
+<!--                <Span begin="1" end="26" chi="true" bb="true"/>-->
+<!--                <Span begin="26" end="27" chi="true" bb="true"/>↪→-->
+<!--            </MoveMap>-->
+        </MinMover>
+        <FastRelax name="fast_relax"/>
+<!--        <FastDesign name="design_rotomers" scorefxn="r15"-->
+<!--                    task_operations="s17_mutant_binding,extrachi">-->
+<!--        </FastDesign>-->
+    </MOVERS>
+    <APPLY_TO_POSE></APPLY_TO_POSE>
+    <PROTOCOLS>
+        <Add mover="design_terminus"/>
+        <Add mover="repack_binding_site"/>
+        <Add mover="min_structure"/>
+        <Add mover="fast_relax"/>
+    </PROTOCOLS>
+    <OUTPUT scorefxn="r15"/>
+</ROSETTASCRIPTS>

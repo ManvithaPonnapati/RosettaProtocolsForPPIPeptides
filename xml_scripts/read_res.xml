@@ -1,0 +1,24 @@
+ <ROSETTASCRIPTS>
+   <SCOREFXNS>
+        <ScoreFunction name="talaris_full" weights="ref2015" symmetric="1" />
+    </SCOREFXNS>
+    <FILTERS>
+    <Ddg name="ddg_binding" threshold="0" repeats="3" repack="1" scorefxn="talaris_full"/>
+  </FILTERS>
+    <TASKOPERATIONS>
+      <ReadResfile name="read_resfile" filename="%%out_restfile%%" />
+      <ProteinInterfaceDesign name="design" jump="1"  repack_chain1="1" repack_chain2="1" design_chain1="1" design_chain2="0" interface_distance_cutoff="18"/>       
+    </TASKOPERATIONS>
+    <MOVERS>
+        <Docking name="dock1" fullatom="1" local_refine="1"/>
+        <PackRotamersMover name="packrot" scorefxn="talaris_full"  task_operations="design"/>
+        <MinMover name="min"  chi="1" bb="1" type="dfpmin_armijo_nonmonotone" tolerance="0.01"/>
+    </MOVERS>
+    <PROTOCOLS>
+        <Add mover_name="dock1"/>
+        <Add mover_name="packrot"/>
+        <Add mover_name="min"/>
+        <Add filter_name="ddg_binding"/>
+    </PROTOCOLS>
+</ROSETTASCRIPTS>
+
