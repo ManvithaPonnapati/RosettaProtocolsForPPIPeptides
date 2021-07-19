@@ -8,4 +8,8 @@ XML Scripts from the SARS-CoV-2 Peptide Design
 
 Python Scripts for Parsing/Writing Flag Files
 
-Drive - All the Rosetta Runs - https://drive.google.com/drive/folders/1exyCbBCYJ2lg5MRFqBP5BQTsm1RsZNgs?usp=sharing 
+
+Backrub XML Script was obtained from https://github.com/Kortemme-Lab/flex_ddG_tutorial/blob/master/ddG-backrub.xml 
+
+
+
