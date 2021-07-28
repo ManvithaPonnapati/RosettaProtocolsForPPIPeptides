@@ -1,4 +1,3 @@
-https://github.com/ManvithaPonnapati/RosettaProtocolsForPPIPeptides
 
 This repo is a list of Rosetta scripts that have been compiled using help from Rosetta tutorials, discussion threads and documentation. Given a complex of two interacting proteins, it allows design of peptide fragments that contribute the most to the binding energy 
 
