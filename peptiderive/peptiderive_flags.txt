@@ -1,0 +1,14 @@
+-in:path:database /u/manvitha/rosetta_bin_linux_2019.35.60890_bundle/main/database
+-in:file:s 3qrf.clean.pdb
+-jd2:delete_old_poses
+-nstruct 1
+-out:chtimestamp
+-out:no_nstruct_label
+-out:mute core.conformation.Conformation
+-out:mute protocols.moves.RigidBodyMover
+-run:other_pose_to_scorefile
+-ex1
+-ex2
+-randomize_missing_coords
+-ignore_unrecognized_res
+-override_rsd_type_limit

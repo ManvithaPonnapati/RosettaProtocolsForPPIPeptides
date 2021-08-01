@@ -1,0 +1,19 @@
+<ROSETTASCRIPTS>
+<FILTERS>
+ <PeptideDeriver name="Peptiderive"
+ restrict_receptors_to_chains="F"
+ restrict_partners_to_chains="G"
+ pep_lengths="10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30"
+ dump_peptide_pose="true"
+ dump_report_file="true"
+ dump_prepared_pose="true"
+ dump_cyclic_poses="true"
+ skip_zero_isc="true"
+ do_minimize="true"
+ report_format="markdown"
+ />
+ </FILTERS>
+ <PROTOCOLS>
+ <Add filter_name="Peptiderive" />
+ </PROTOCOLS>
+</ROSETTASCRIPTS>
